@@ -16,6 +16,8 @@ define(function(require) {
     // installation button. See <button class="install-btn"> in
     // index.html
     //require('./install-button');
+    //require('zepto');
+    var Caman = require('caman');
 
 
     // Write your app here.
@@ -43,14 +45,85 @@ define(function(require) {
 
         activity.onsuccess = function success() {            
 
-            var img = document.getElementById('show-picture');
-            img.src = URL.createObjectURL(this.result.blob);
+          var img = document.getElementById('show-picture');
+          var imageURL = URL.createObjectURL(this.result.blob);                    
+          img.src = imageURL;          
 
-            // Revoke ObjectURL
-            URL.revokeObjectURL(imgURL);
 
-          };    
+          /*var oCanvas = document.getElementById("show-picture"), 
+              oCtx = oCanvas.getContext("2d");          
+
+          var oImage = new Image();
+          oImage.src = imageURL;
+          oImage.onload = function () {
+            oCanvas.width = this.width;
+            oCanvas.height = this.height;
+            oCtx.clearRect(0, 0, this.width, this.height);
+            oCtx.drawImage(this, 0, 0);        
+          };      */
+
+          // Revoke ObjectURL
+          URL.revokeObjectURL(imageURL);
+
+        };    
+      });
+
+      var btneffect1 = document.getElementById('btn-effect1');
+      btneffect1.addEventListener('click', function(){
+
+        console.log('aplicando filtro...');
+
+        var img = document.getElementById('show-picture');
+
+        Caman(img, function () {
+          this.brightness(35).render();
         });
+
+
+      });
+
+      var btneffect1 = document.getElementById('btn-effect1');
+      btneffect1.addEventListener('click', function(){
+
+        console.log('aplicando filtro...');
+
+        var img = document.getElementById('show-picture');
+
+        Caman(img, function () {
+          this.brightness(35).render();                  
+        });
+
+
+      });
+
+      var btneffect2 = document.getElementById('btn-effect2');
+      btneffect2.addEventListener('click', function(){
+
+        console.log('aplicando filtro...');
+
+        var img = document.getElementById('show-picture');
+
+        Caman(img, function () {          
+          this.gamma(1.8).render();
+        });
+
+
+      });
+
+      var btneffect3 = document.getElementById('btn-effect3');
+      btneffect3.addEventListener('click', function(){
+
+        console.log('aplicando filtro...');
+
+        var img = document.getElementById('show-picture');
+
+        Caman(img, function () {          
+          this.curves("rgb", [0, 0], [200, 0], [155, 255], [255, 255]).render();          
+        });
+
+      });
+
+
 
 
     })();
